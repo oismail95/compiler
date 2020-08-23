@@ -1,0 +1,43 @@
+#include <iostream>
+#include <string>
+#include <cstdio>
+#include <stack>
+#include "checkSem.h"
+#include "node.h"
+using namespace std;
+
+static stack <node_t> tk_id;
+
+void checkSem(node_t *node, int level, int count){
+
+  bool check;
+
+  if(node == NULL)
+    return; 
+
+  //Here is the preorder output for the id, number, and operator tokens
+  //printf("%*c%d: Nonterminal: %s | ID --> %s | Number --> %s | Operator --> %s", level*2, ' ', level, node->label.c_str(), (node->tk_id.str).c_str(), (node->tk_num.str).c_str(), (node->tk_oper.str).c_str());
+  //printf("\n");
+
+  if(node->label == "V" && node->tk_id.str != ""){
+    cout << "V" << endl;
+    cout << "ID Token: " << node->tk_id.str << endl << endl;
+
+    check = verify(node->tk_id.str);
+  }
+  else{
+    cout << "No V" << endl << endl;
+  }
+
+  checkSem(node->child1, level + 1, count + 1);
+  checkSem(node->child2, level + 1, count + 1);
+  checkSem(node->child3, level + 1, count + 1);
+  checkSem(node->child4, level + 1, count + 1);
+}
+
+//Got that code snippet from https://www.geeksforgeeks.org/stack-in-cpp-stl/
+bool verify(string id){
+}
+
+void insert(string id){
+}
